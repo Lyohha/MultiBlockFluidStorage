@@ -18,6 +18,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.*;
+import ua.lyohha.multiblockstorage.tileentity.HatchTileEntity;
 
 import javax.annotation.Nullable;
 
@@ -385,6 +386,11 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
     private void setMaxStore()
     {
         maxstore = size*9*bucket_per_block;
+        if(store > maxstore)
+        {
+            store = maxstore;
+            fluidStack.amount = store;
+        }
         worldObj.markBlockForUpdate(xCoord,yCoord,zCoord);
         //System.out.println("Max Store:" + maxstore);
     }
@@ -421,6 +427,12 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
                             {
                                 if (!(block == MultiBlockStorage.storageCasingBlock || block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock))
                                     return false;
+                                if(block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageInputBlock)
+                                {
+                                    TileEntity tileEntity = worldObj.getTileEntity(xCoord+offsetX+i,yCoord+offsetY,zCoord+offsetZ+j);
+                                    if(tileEntity != null)
+                                        ((HatchTileEntity)tileEntity).setControllerBlock(this);
+                                }
                             }
 
                         }
@@ -739,28 +751,42 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
     //теперь это еще и жидкосное хранилище
 
     @Override
-    public FluidStack getFluid() {
+    public FluidStack getFluid()
+    {
+        if(!formed)
+            return null;
         return fluidStack;
     }
 
     @Override
-    public int getFluidAmount() {
+    public int getFluidAmount()
+    {
+        if(!formed)
+            return 0;
         return store;
     }
 
     @Override
-    public int getCapacity() {
+    public int getCapacity()
+    {
+        if(!formed)
+            return 0;
         return maxstore;
     }
 
     @Override
-    public FluidTankInfo getInfo() {
+    public FluidTankInfo getInfo()
+    {
+        if(!formed)
+            return null;
         return new FluidTankInfo(this);
     }
 
     @Override
     public int fill(FluidStack resource, boolean doFill)
     {
+        if(!formed)
+            return 0;
         if(resource != null)
         {
             if(fluidStack == null)
@@ -803,6 +829,8 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain)
     {
+        if(!formed)
+            return null;
         if(fluidStack != null)
         {
             if(getFluidAmount() - maxDrain > 0)

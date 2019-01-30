@@ -15,13 +15,14 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import ua.lyohha.multiblockstorage.gui.GuiHandler;
 import ua.lyohha.multiblockstorage.proxy.CommonProxy;
+import ua.lyohha.multiblockstorage.tileentity.HatchTileEntity;
 
 @Mod(modid = MultiBlockStorage.modid, version = MultiBlockStorage.version, name = MultiBlockStorage.modname)
 public class MultiBlockStorage
 {
     public static final String modid = "multiblockstorage";
     public static final String modname = "MultiBlock Storage";
-    private static final int build = 1;
+    private static final int build = 2;
     public static final String version = "0.0.1." + build;
 
     //CreativeTab
@@ -103,5 +104,6 @@ public class MultiBlockStorage
     private void RegisterEntity()
     {
         GameRegistry.registerTileEntity(StorageControllerTileEntity.class,"StorageControllerTileEntity");
+        GameRegistry.registerTileEntity(HatchTileEntity.class,"HatchTileEntity");
     }
 }
