@@ -1,0 +1,16 @@
+[
+{
+  "modid": "multiblockstorage",
+  "name": "MultiBlock Storage",
+  "description": "This mod add MultiBlock Storage For Fluids",
+  "version": "0.0.1",
+  "mcversion": "MC1710",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Lyohha"],
+  "credits": "The Forge and FML guys, TheGreyGhost, Wehavecookies56",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

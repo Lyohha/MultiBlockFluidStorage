@@ -1,0 +1,6 @@
+tile.storageCasingBlock.name=Storage Casing
+tile.storageControllerBlock.name=Storage Controller
+tile.storageInputBlock.name=Input Hatch
+tile.storageOutputBlock.name=Output Hatch
+tile.storageControllerBlock.container.name=MultiBlock Storage
+itemGroup.multiblock_storage_tab=MultiBlock Storage
