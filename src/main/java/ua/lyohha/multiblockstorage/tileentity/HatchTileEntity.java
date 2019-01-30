@@ -2,12 +2,11 @@ package ua.lyohha.multiblockstorage.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.*;
 import ua.lyohha.multiblockstorage.StorageControllerTileEntity;
 
-public class HatchTileEntity extends TileEntity implements IFluidTank
+public class HatchTileEntity extends TileEntity implements IFluidHandler
 {
     private StorageControllerTileEntity storageControllerTileEntity = null;
     private TypeHatch typeHatch;
@@ -70,7 +69,7 @@ public class HatchTileEntity extends TileEntity implements IFluidTank
 
     //функции жидкосного хранилища
 
-    @Override
+    /*@Override
     public FluidStack getFluid()
     {
 
@@ -144,5 +143,91 @@ public class HatchTileEntity extends TileEntity implements IFluidTank
             }
         }
         return null;
+    }*/
+    @Override
+    public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
+    {
+        if(storageControllerTileEntity != null)
+        {
+            if(typeHatch == TypeHatch.INPUT)
+            {
+                return storageControllerTileEntity.fill(resource,doFill);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain)
+    {
+        if(storageControllerTileEntity != null)
+        {
+            if(typeHatch == TypeHatch.INPUT)
+                return null;
+            else
+            {
+                if(storageControllerTileEntity.getFluid().isFluidEqual(resource))
+                    return storageControllerTileEntity.drain(resource.amount,doDrain);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+        if(storageControllerTileEntity != null)
+        {
+            if(typeHatch == TypeHatch.INPUT)
+            {
+                return null;
+            }
+            else
+            {
+                return storageControllerTileEntity.drain(maxDrain,doDrain);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean canFill(ForgeDirection from, Fluid fluid)
+    {
+        if(typeHatch == TypeHatch.OUTPUT)
+            return false;
+        if(storageControllerTileEntity != null)
+        {
+            FluidStack fluidStack = storageControllerTileEntity.getFluid();
+            if(fluidStack == null && !storageControllerTileEntity.isFormed())
+                return false;
+            return fluidStack==null || fluidStack.isFluidEqual(new FluidStack(fluid,1));
+        }
+        return false;
+    }
+
+    @Override
+    public boolean canDrain(ForgeDirection from, Fluid fluid)
+    {
+        if(typeHatch == TypeHatch.INPUT)
+            return false;
+        if(storageControllerTileEntity != null)
+        {
+            FluidStack fluidStack = storageControllerTileEntity.getFluid();
+            if(fluidStack == null && !storageControllerTileEntity.isFormed())
+                return false;
+            return fluidStack==null || fluidStack.isFluidEqual(new FluidStack(fluid,1));
+        }
+        return false;
+    }
+
+    @Override
+    public FluidTankInfo[] getTankInfo(ForgeDirection from)
+    {
+        if(storageControllerTileEntity != null)
+            return new FluidTankInfo[]{storageControllerTileEntity.getInfo()};
+        return new FluidTankInfo[0];
     }
 }
