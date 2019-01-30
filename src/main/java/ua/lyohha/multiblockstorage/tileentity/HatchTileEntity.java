@@ -34,7 +34,13 @@ public class HatchTileEntity extends TileEntity implements IFluidHandler
         if(storageControllerTileEntity != null)
         {
             if(storageControllerTileEntity.isInvalid())
+            {
+                if(typeHatch == TypeHatch.OUTPUT)
+                    System.out.println("Invalid Block Output Hatch");
+                else
+                    System.out.println("Invalid Block Input Hatch");
                 storageControllerTileEntity = null;
+            }
         }
     }
 

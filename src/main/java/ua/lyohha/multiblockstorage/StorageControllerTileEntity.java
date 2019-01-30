@@ -427,7 +427,7 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
                             {
                                 if (!(block == MultiBlockStorage.storageCasingBlock || block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock))
                                     return false;
-                                if(block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageInputBlock)
+                                if(block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock)
                                 {
                                     TileEntity tileEntity = worldObj.getTileEntity(xCoord+offsetX+i,yCoord+offsetY,zCoord+offsetZ+j);
                                     if(tileEntity != null)
@@ -447,6 +447,12 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
                             {
                                 if (!(block == MultiBlockStorage.storageCasingBlock || block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock))
                                     return false;
+                                if(block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock)
+                                {
+                                    TileEntity tileEntity = worldObj.getTileEntity(xCoord+offsetX+i,yCoord+offsetY,zCoord+offsetZ+j);
+                                    if(tileEntity != null)
+                                        ((HatchTileEntity)tileEntity).setControllerBlock(this);
+                                }
                             }
                         }
                     }
@@ -454,6 +460,12 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
                     {
                         if (!(block == MultiBlockStorage.storageCasingBlock || block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock))
                             return false;
+                        if(block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock)
+                        {
+                            TileEntity tileEntity = worldObj.getTileEntity(xCoord+offsetX+i,yCoord+offsetY,zCoord+offsetZ+j);
+                            if(tileEntity != null)
+                                ((HatchTileEntity)tileEntity).setControllerBlock(this);
+                        }
                     }
 
                 }
