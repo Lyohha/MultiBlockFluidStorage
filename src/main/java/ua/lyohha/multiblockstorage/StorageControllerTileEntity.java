@@ -31,8 +31,8 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
     private int size = 0;
     private int store = 0;
     private int maxstore = 0;
-    private final static int maxsize = 250;
-    private final static int bucket_per_block = 1000;
+    private final static int maxsize = 256;
+    private final static int bucket_per_block = 16000;
     private int offsetX, offsetY, offsetZ;
     private WorldSide worldSide = WorldSide.WEST;
 
