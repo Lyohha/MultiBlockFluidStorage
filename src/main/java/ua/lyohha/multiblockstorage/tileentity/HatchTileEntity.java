@@ -35,10 +35,6 @@ public class HatchTileEntity extends TileEntity implements IFluidHandler
         {
             if(storageControllerTileEntity.isInvalid())
             {
-                if(typeHatch == TypeHatch.OUTPUT)
-                    System.out.println("Invalid Block Output Hatch");
-                else
-                    System.out.println("Invalid Block Input Hatch");
                 storageControllerTileEntity = null;
             }
         }
@@ -75,81 +71,6 @@ public class HatchTileEntity extends TileEntity implements IFluidHandler
 
     //функции жидкосного хранилища
 
-    /*@Override
-    public FluidStack getFluid()
-    {
-
-        if(storageControllerTileEntity != null)
-        {
-            return storageControllerTileEntity.getFluid();
-        }
-        return null;
-    }
-
-    @Override
-    public int getFluidAmount()
-    {
-        if(storageControllerTileEntity != null)
-        {
-            return storageControllerTileEntity.getFluidAmount();
-        }
-        return 0;
-    }
-
-    @Override
-    public int getCapacity()
-    {
-        if(storageControllerTileEntity != null)
-        {
-            return storageControllerTileEntity.getCapacity();
-        }
-        return 0;
-    }
-
-    @Override
-    public FluidTankInfo getInfo()
-    {
-        if(storageControllerTileEntity != null)
-        {
-            return storageControllerTileEntity.getInfo();
-        }
-        return null;
-
-    }
-
-    @Override
-    public int fill(FluidStack resource, boolean doFill)
-    {
-        if(storageControllerTileEntity != null)
-        {
-            if(typeHatch == TypeHatch.INPUT)
-            {
-                return storageControllerTileEntity.fill(resource,doFill);
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        return 0;
-    }
-
-    @Override
-    public FluidStack drain(int maxDrain, boolean doDrain)
-    {
-        if(storageControllerTileEntity != null)
-        {
-            if(typeHatch == TypeHatch.INPUT)
-            {
-                return null;
-            }
-            else
-            {
-                return storageControllerTileEntity.drain(maxDrain,doDrain);
-            }
-        }
-        return null;
-    }*/
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
     {

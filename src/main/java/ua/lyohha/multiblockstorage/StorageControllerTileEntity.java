@@ -31,7 +31,7 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
     private int size = 0;
     private int store = 0;
     private int maxstore = 0;
-    private final static int maxsize = 10;
+    private final static int maxsize = 250;
     private final static int bucket_per_block = 1000;
     private int offsetX, offsetY, offsetZ;
     private WorldSide worldSide = WorldSide.WEST;
@@ -334,7 +334,6 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
                     }
                 }
             }
-
         }
     }
 
@@ -397,6 +396,8 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
 
     private boolean checkTier()
     {
+        if(yCoord + offsetY > 255)
+            return false;
         for(int i=-1;i<2;i++)
         {
             for(int j=-1;j<2;j++)
@@ -471,12 +472,15 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
                 }
             }
         }
-        //System.out.println("Check Tier OK " + offsetY);
         return true;
     }
 
     private boolean checkBase()
     {
+        if(yCoord == 0)
+            return false;
+        if(yCoord + offsetY > 255)
+            return false;
         for(int i=-1;i<2;i++)
         {
             for(int j=-1;j<2;j++)
@@ -486,7 +490,6 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
                     return false;
             }
         }
-        //System.out.println("Base OK");
         return true;
     }
 
@@ -746,14 +749,12 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
-        System.out.println("Check item for insert " + stack.getItem().getUnlocalizedName() + " on slot " + slot);
         if(slot == 1)
             return false;
         else
         {
             if(stack.getItem() == Items.bucket || stack.getItem() == Items.lava_bucket || stack.getItem() == Items.water_bucket || stack.getItem() instanceof IFluidContainerItem)
             {
-                System.out.println("This is item" + stack.getItem().getUnlocalizedName());
                 return true;
             }
         }
