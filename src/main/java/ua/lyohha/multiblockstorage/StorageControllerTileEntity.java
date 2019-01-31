@@ -805,12 +805,10 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
             {
                 if(doFill)
                 {
-                    fluidStack = new FluidStack(resource.getFluid(), 1);
+                    fluidStack = new FluidStack(resource.getFluid(), resource.amount);
                     store = resource.amount;
-                    fluidStack.amount = store;
                 }
-                else
-                    return resource.amount;
+                return resource.amount;
             }
             else if(fluidStack.isFluidEqual(resource))
             {

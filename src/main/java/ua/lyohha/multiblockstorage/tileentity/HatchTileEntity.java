@@ -176,8 +176,9 @@ public class HatchTileEntity extends TileEntity implements IFluidHandler
                 return null;
             else
             {
-                if(storageControllerTileEntity.getFluid().isFluidEqual(resource))
-                    return storageControllerTileEntity.drain(resource.amount,doDrain);
+                if(storageControllerTileEntity.getFluid() != null)
+                    if(storageControllerTileEntity.getFluid().isFluidEqual(resource))
+                        return storageControllerTileEntity.drain(resource.amount,doDrain);
             }
         }
         return null;
@@ -209,7 +210,7 @@ public class HatchTileEntity extends TileEntity implements IFluidHandler
             FluidStack fluidStack = storageControllerTileEntity.getFluid();
             if(fluidStack == null && !storageControllerTileEntity.isFormed())
                 return false;
-            return fluidStack==null || fluidStack.isFluidEqual(new FluidStack(fluid,1));
+            return fluidStack==null || fluidStack.getFluid() == fluid;
         }
         return false;
     }
