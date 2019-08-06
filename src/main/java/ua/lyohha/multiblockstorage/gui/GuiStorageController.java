@@ -18,7 +18,8 @@ public class GuiStorageController extends GuiContainer
 {
     private StorageControllerTileEntity storageControllerTileEntity;
     public static final ResourceLocation resourceLocation = new ResourceLocation("multiblockstorage:textures/gui/MultiStorage.png");
-    public GuiStorageController(InventoryPlayer inventoryPlayer, StorageControllerTileEntity storageControllerTileEntity)
+    
+	public GuiStorageController(InventoryPlayer inventoryPlayer, StorageControllerTileEntity storageControllerTileEntity)
     {
         super(new ContainerStorageController(inventoryPlayer,storageControllerTileEntity));
         xSize = 176;

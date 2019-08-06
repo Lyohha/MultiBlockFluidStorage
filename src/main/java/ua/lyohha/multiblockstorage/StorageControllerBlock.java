@@ -3,6 +3,7 @@ package ua.lyohha.multiblockstorage;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import ua.lyohha.multiblockstorage.gui.GuiHandler;
 
@@ -26,7 +27,18 @@ public class StorageControllerBlock extends StorageBlock {
     {
         if(!world.isRemote)
         {
-            player.openGui(MultiBlockStorage.instance, GuiHandler.GUIID_STORAGE_CONTROLLER,world,x,y,z);
+            TileEntity tileEntity = world.getTileEntity(x,y,z);
+            if(tileEntity != null)
+            {
+                if(((StorageControllerTileEntity)tileEntity).isFormed())
+                    player.openGui(MultiBlockStorage.instance, GuiHandler.GUIID_STORAGE_CONTROLLER,world,x,y,z);
+                else
+                {
+                    String msg = ((StorageControllerTileEntity)tileEntity).getErrorMsg();
+                    if(msg != null)
+                        player.addChatComponentMessage(new ChatComponentText(msg));
+                }
+            }
         }
         return true;
     }

@@ -35,11 +35,17 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
     private final static int bucket_per_block = 16000;
     private int offsetX, offsetY, offsetZ;
     private WorldSide worldSide = WorldSide.WEST;
+    private String errorMsg = null;
 
     public StorageControllerTileEntity()
     {
         itemStacks[0] = null;
         itemStacks[1] = null;
+    }
+
+    public String getErrorMsg()
+    {
+        return errorMsg;
     }
 
     @Override
@@ -406,7 +412,10 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
                 if(i != 0 && j != 0)
                 {
                     if(block != MultiBlockStorage.storageCasingBlock)
+                    {
+                        errorMsg = "Invalid block " + block.getLocalizedName() + " on x:" + (xCoord+offsetX+i) + " y:" + (yCoord+offsetY) + " z:" + (zCoord+offsetZ+j);
                         return false;
+                    }
                 }
                 else if(i == 0 && j == 0)
                 {
@@ -422,12 +431,18 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
                             if((j+offsetZ) == 0)
                             {
                                 if (block != MultiBlockStorage.storageControllerBlock)
+                                {
+                                    errorMsg = "Invalid block " + block.getLocalizedName() + " on x:" + (xCoord+offsetX+i) + " y:" + (yCoord+offsetY) + " z:" + (zCoord+offsetZ+j);
                                     return false;
+                                }
                             }
                             else
                             {
                                 if (!(block == MultiBlockStorage.storageCasingBlock || block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock))
+                                {
+                                    errorMsg = "Invalid block " + block.getLocalizedName() + " on x:" + (xCoord + offsetX + i) + " y:" + (yCoord + offsetY) + " z:" + (zCoord + offsetZ + j);
                                     return false;
+                                }
                                 if(block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock)
                                 {
                                     TileEntity tileEntity = worldObj.getTileEntity(xCoord+offsetX+i,yCoord+offsetY,zCoord+offsetZ+j);
@@ -442,12 +457,18 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
                             if((i+offsetX) == 0)
                             {
                                 if (block != MultiBlockStorage.storageControllerBlock)
+                                {
+                                    errorMsg = "Invalid block " + block.getLocalizedName() + " on x:" + (xCoord + offsetX + i) + " y:" + (yCoord + offsetY) + " z:" + (zCoord + offsetZ + j);
                                     return false;
+                                }
                             }
                             else
                             {
                                 if (!(block == MultiBlockStorage.storageCasingBlock || block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock))
+                                {
+                                    errorMsg = "Invalid block " + block.getLocalizedName() + " on x:" + (xCoord + offsetX + i) + " y:" + (yCoord + offsetY) + " z:" + (zCoord + offsetZ + j);
                                     return false;
+                                }
                                 if(block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock)
                                 {
                                     TileEntity tileEntity = worldObj.getTileEntity(xCoord+offsetX+i,yCoord+offsetY,zCoord+offsetZ+j);
@@ -460,7 +481,10 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
                     else
                     {
                         if (!(block == MultiBlockStorage.storageCasingBlock || block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock))
+                        {
+                            errorMsg = "Invalid block " + block.getLocalizedName() + " on x:" + (xCoord + offsetX + i) + " y:" + (yCoord + offsetY) + " z:" + (zCoord + offsetZ + j);
                             return false;
+                        }
                         if(block == MultiBlockStorage.storageInputBlock || block == MultiBlockStorage.storageOutputBlock)
                         {
                             TileEntity tileEntity = worldObj.getTileEntity(xCoord+offsetX+i,yCoord+offsetY,zCoord+offsetZ+j);
@@ -487,7 +511,10 @@ public class StorageControllerTileEntity extends TileEntity implements ISidedInv
             {
                 Block block = worldObj.getBlock(xCoord+offsetX+i,yCoord+offsetY,zCoord+offsetZ+j);
                 if(block != MultiBlockStorage.storageCasingBlock)
+                {
+                    errorMsg = "Invalid block " + block.getLocalizedName() + " on x:" + (xCoord + offsetX + i) + " y:" + (yCoord + offsetY) + " z:" + (zCoord + offsetZ + j);
                     return false;
+                }
             }
         }
         return true;
