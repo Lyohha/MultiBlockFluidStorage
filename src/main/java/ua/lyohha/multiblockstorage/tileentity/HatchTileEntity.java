@@ -1,5 +1,6 @@
 package ua.lyohha.multiblockstorage.tileentity;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -56,7 +57,8 @@ public class HatchTileEntity extends TileEntity implements IFluidHandler {
             xCoord = nbtTagCompound.getInteger("xCoord");
             yCoord = nbtTagCompound.getInteger("yCoord");
             zCoord = nbtTagCompound.getInteger("zCoord");
-            storageControllerTileEntity = (StorageControllerTileEntity) worldObj.getTileEntity(xCoord, yCoord, zCoord);
+            if (FMLCommonHandler.instance().getEffectiveSide().isServer() && hasWorldObj())
+                storageControllerTileEntity = (StorageControllerTileEntity) worldObj.getTileEntity(xCoord, yCoord, zCoord);
 
         }
     }
