@@ -38,6 +38,14 @@ public class HatchTileEntity extends TileEntity implements IFluidHandler {
         }
     }
 
+    private TypeHatch getFromInteger(int type) {
+        return type == 1 ? TypeHatch.INPUT : TypeHatch.OUTPUT;
+    }
+
+    private int getFromTypeHatch(TypeHatch type) {
+        return type == TypeHatch.INPUT ? 1 : 2;
+    }
+
     //функции nbt-тегов
     @Override
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
@@ -47,6 +55,7 @@ public class HatchTileEntity extends TileEntity implements IFluidHandler {
             nbtTagCompound.setInteger("yCoord", storageControllerTileEntity.yCoord);
             nbtTagCompound.setInteger("zCoord", storageControllerTileEntity.zCoord);
         }
+        nbtTagCompound.setInteger("TypeHatch", getFromTypeHatch(typeHatch));
     }
 
     @Override
@@ -61,6 +70,8 @@ public class HatchTileEntity extends TileEntity implements IFluidHandler {
                 storageControllerTileEntity = (StorageControllerTileEntity) worldObj.getTileEntity(xCoord, yCoord, zCoord);
 
         }
+        if(nbtTagCompound.hasKey("TypeHatch", INT_ID))
+            this.typeHatch = getFromInteger(nbtTagCompound.getInteger("TypeHatch"));
     }
 
 
