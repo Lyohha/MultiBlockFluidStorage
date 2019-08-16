@@ -22,8 +22,8 @@ public class MultiBlockStorage
 {
     public static final String modid = "multiblockstorage";
     public static final String modname = "MultiBlock Storage";
-    private static final int build = 11;
-    public static final String version = "0.0.1." + build;
+    private static final int build = 1;
+    public static final String version = "0.0.2." + build;
 
     //CreativeTab
     public static CreativeTabs multiBlockStorageTab = new MultiBlockStorageTab("multiblock_storage_tab");

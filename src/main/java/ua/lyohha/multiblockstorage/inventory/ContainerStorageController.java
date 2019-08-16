@@ -13,8 +13,8 @@ public class ContainerStorageController extends ContainerMultiBlockStorage
 
     public ContainerStorageController(InventoryPlayer inventoryPlayer, StorageControllerTileEntity storageControllerTileEntity)
     {
-        addSlotToContainer(new SlotStorage(storageControllerTileEntity,0,116,13));
-        addSlotToContainer(new SlotStorage(storageControllerTileEntity,1,116,49));
+        addSlotToContainer(new SlotStorage(storageControllerTileEntity,0,116,16));
+        addSlotToContainer(new SlotStorage(storageControllerTileEntity,1,116,52));
         this.addPlayerSlots(inventoryPlayer,8,84,0);
         this.storageControllerTileEntity = storageControllerTileEntity;
     }
